@@ -111,6 +111,7 @@ public class Cliente {
         // Botão de Login
         JButton botaoLogin = new JButton("Login");
         botaoLogin.setBackground(new Color(30, 215, 96)); // Cor verde do Spotify
+        botaoLogin.setFont(new Font("SansSerif", Font.BOLD, 20));
         botaoLogin.setForeground(Color.WHITE);
         botaoLogin.setFocusPainted(false);
         gbc.gridx = 0;
@@ -119,8 +120,9 @@ public class Cliente {
         painelLogin.add(botaoLogin, gbc);
 
         // Botão para sair
-        JButton botaoSair = new JButton("Sair");
+        JButton botaoSair = new JButton(mensagens.getString("quit"));
         botaoSair.setBackground(new Color(215, 30, 30)); // Cor vermelha
+        botaoSair.setFont(new Font("SansSerif", Font.BOLD, 20));
         botaoSair.setForeground(Color.WHITE);
         botaoSair.setFocusPainted(false);
         gbc.gridx = 1;
@@ -141,7 +143,8 @@ public class Cliente {
                 labelSenha.setText(mensagens.getString("password_label"));
                 labelIdioma.setText(mensagens.getString("language_label"));
                 loginFrame.setTitle(mensagens.getString("login_title"));
-                botaoLogin.setText("Login");
+                botaoSair.setText(mensagens.getString("quit"));
+                botaoLogin.setText(mensagens.getString("login_label"));
             }
         };
         comboIdiomas.addActionListener(atualizarIdioma);
