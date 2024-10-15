@@ -8,7 +8,7 @@ public class Servidor {
     private static Map<String, ClienteInfo> clientes = new HashMap<>();
 
     public static void main(String[] args) throws Exception {
-        int porta = 12345;
+        int porta = 9001;
         ServerSocket listener = new ServerSocket(porta);
         System.out.println("Servidor iniciado na porta: " + porta);
 

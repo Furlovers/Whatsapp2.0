@@ -9,7 +9,7 @@ import javax.swing.text.*;
 
 public class Cliente {
 
-    private String senhaUsuario; // Senha do usuário
+    private String senhaUsuario; 
     private BufferedReader in;
     private PrintWriter out;
     private JFrame frame; // Janela principal do chat
@@ -178,7 +178,7 @@ public class Cliente {
 
                             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                             frame.setLocationRelativeTo(null);
-                            frame.setSize(500, 400);
+                            frame.setSize(700, 400);
                             frame.setVisible(true);
 
                             // Executa o cliente
@@ -246,9 +246,13 @@ public class Cliente {
         comboUsuarios.addItem(mensagens.getString("everyone_message")); // Adiciona a opção "Everyone" inicialmente
         comboUsuarios.setSelectedIndex(0); // Seleciona "Everyone" por padrão
 
-        painelInferior.add(new JLabel(mensagens.getString("to_message")));
+        // Adiciona os componentes ao painel inferior
+        JLabel labelDestinatario = new JLabel(mensagens.getString("to_message"));
+        labelDestinatario.setFont(new Font("Arial", Font.PLAIN, 20));
+        painelInferior.add(labelDestinatario);
         painelInferior.add(comboUsuarios);
 
+        campoTexto.setFont(new Font("Arial", Font.PLAIN, 20));
         painelInferior.add(campoTexto);
 
         frame.getContentPane().add(painelPrincipal, BorderLayout.CENTER);
@@ -276,7 +280,7 @@ public class Cliente {
 
     private void executar() throws IOException {
         String enderecoServidor = "localhost";
-        int porta = 12345;
+        int porta = 9001;
         Socket socket = new Socket(enderecoServidor, porta);
         in = new BufferedReader(
                 new InputStreamReader(socket.getInputStream()));
