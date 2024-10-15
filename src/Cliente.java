@@ -70,6 +70,7 @@ public class Cliente {
         JTextField campoNomeUsuario = new JTextField(15);
         gbc.gridx = 1;
         gbc.gridy = 1;
+        campoNomeUsuario.setFont(new Font("SansSerif", Font.PLAIN, 20));
         painelLogin.add(campoNomeUsuario, gbc);
 
         // Rótulo e campo de senha
@@ -83,6 +84,7 @@ public class Cliente {
         JPasswordField campoSenha = new JPasswordField(15);
         gbc.gridx = 1;
         gbc.gridy = 2;
+        campoSenha.setFont(new Font("SansSerif", Font.PLAIN, 20));
         painelLogin.add(campoSenha, gbc);
 
         // Seleção de idioma
@@ -106,6 +108,7 @@ public class Cliente {
         comboIdiomas.setSelectedIndex(0); // Idioma padrão
         gbc.gridx = 1;
         gbc.gridy = 3;
+        comboIdiomas.setFont(new Font("SansSerif", Font.PLAIN, 20));
         painelLogin.add(comboIdiomas, gbc);
 
         // Botão de Login
@@ -245,6 +248,7 @@ public class Cliente {
 
         painelInferior.add(new JLabel(mensagens.getString("to_message")));
         painelInferior.add(comboUsuarios);
+
         painelInferior.add(campoTexto);
 
         frame.getContentPane().add(painelPrincipal, BorderLayout.CENTER);
