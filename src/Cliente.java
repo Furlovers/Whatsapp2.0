@@ -9,46 +9,45 @@ import javax.swing.text.*;
 
 public class Cliente {
 
-    private String senhaUsuario; 
+    private String senhaUsuario;
     private BufferedReader in;
     private PrintWriter out;
-    private JFrame frame; // Janela principal do chat
+    private JFrame frame;
     private JTextField campoTexto = new JTextField(30);
     private JTextPane areaTexto = new JTextPane();
     private String nomeUsuario;
     private ResourceBundle mensagens;
     private Locale idiomaSelecionado;
     private JFrame loginFrame;
-    private JComboBox<String> comboUsuarios; // ComboBox para selecionar o destinatário
+    private JComboBox<String> comboUsuarios; // ComboBox para selecionar o usuário para quem a mensagem será enviada
     private DefaultComboBoxModel<String> modeloUsuarios; // Modelo para atualizar a lista de usuários
     private boolean chatConfigurado = false; // Flag para verificar se a tela do chat já foi configurada
 
     public Cliente() {
 
-        // Configuração inicial do idioma padrão
-        idiomaSelecionado = new Locale("pt"); // Português como idioma padrão
+        idiomaSelecionado = new Locale("pt");
         mensagens = ResourceBundle.getBundle("Messages", idiomaSelecionado);
 
-        // Tela de Login Personalizada
+        // Inicia a tela de login
         criarTelaLogin();
     }
 
     private void criarTelaLogin() {
-        // Cria a tela principal
+
         loginFrame = new JFrame(mensagens.getString("login_title"));
         loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginFrame.setSize(600, 350);
         loginFrame.setLocationRelativeTo(null);
 
-        // Cria o painel principal com uma cor de fundo
+        // Painel Principal
         JPanel painelLogin = new JPanel(new GridBagLayout());
-        painelLogin.setBackground(new Color(60, 63, 65)); // Cor de fundo escura
+        painelLogin.setBackground(new Color(60, 63, 65));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Logo ou título no topo
+        // Título da tela de Login (CalvApp)
         JLabel labelLogo = new JLabel("CalvApp");
         labelLogo.setFont(new Font("SansSerif", Font.BOLD, 50));
         labelLogo.setForeground(Color.WHITE);
@@ -58,7 +57,7 @@ public class Cliente {
         gbc.gridwidth = 2;
         painelLogin.add(labelLogo, gbc);
 
-        // Rótulo e campo de nome de usuário
+        // Nome de usuário
         JLabel labelNomeUsuario = new JLabel(mensagens.getString("choose_username"));
         labelNomeUsuario.setForeground(Color.WHITE);
         labelNomeUsuario.setFont(new Font("SansSerif", Font.BOLD, 20));
@@ -73,7 +72,7 @@ public class Cliente {
         campoNomeUsuario.setFont(new Font("SansSerif", Font.PLAIN, 20));
         painelLogin.add(campoNomeUsuario, gbc);
 
-        // Rótulo e campo de senha
+        // Senha
         JLabel labelSenha = new JLabel(mensagens.getString("password_label"));
         labelSenha.setFont(new Font("SansSerif", Font.BOLD, 20));
         labelSenha.setForeground(Color.WHITE);
@@ -87,7 +86,7 @@ public class Cliente {
         campoSenha.setFont(new Font("SansSerif", Font.PLAIN, 20));
         painelLogin.add(campoSenha, gbc);
 
-        // Seleção de idioma
+        // Idiomas
         JLabel labelIdioma = new JLabel(mensagens.getString("language_label"));
         labelIdioma.setFont(new Font("SansSerif", Font.BOLD, 20));
         labelIdioma.setForeground(Color.WHITE);
@@ -113,7 +112,7 @@ public class Cliente {
 
         // Botão de Login
         JButton botaoLogin = new JButton("Login");
-        botaoLogin.setBackground(new Color(30, 215, 96)); // Cor verde do Spotify
+        botaoLogin.setBackground(new Color(30, 215, 96));
         botaoLogin.setFont(new Font("SansSerif", Font.BOLD, 20));
         botaoLogin.setForeground(Color.WHITE);
         botaoLogin.setFocusPainted(false);
@@ -132,7 +131,6 @@ public class Cliente {
         gbc.gridy = 4;
         painelLogin.add(botaoSair, gbc);
 
-        // Dicas de ferramentas
         campoNomeUsuario.setToolTipText("Digite seu nome de usuário");
         campoSenha.setToolTipText("Digite sua senha");
 
@@ -152,7 +150,7 @@ public class Cliente {
         };
         comboIdiomas.addActionListener(atualizarIdioma);
 
-        // Adiciona o listener de ação para o botão de login
+        // Adiciona o listener para o botão de login
         botaoLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 nomeUsuario = campoNomeUsuario.getText();
@@ -165,13 +163,13 @@ public class Cliente {
                             mensagens.getString("login_title"),
                             JOptionPane.ERROR_MESSAGE);
                 } else {
-                    // Tenta autenticar o usuário
+
                     try {
                         Usuario usuario = new Usuario(nomeUsuario, senhaUsuario);
                         if (usuario.autenticar()) {
                             loginFrame.dispose();
 
-                            // Configura a interface de chat após o login bem-sucedido
+                            // Configura o chat se as informações do usuário estão corretas
                             if (!chatConfigurado) {
                                 configurarChat();
                             }
@@ -181,7 +179,6 @@ public class Cliente {
                             frame.setSize(700, 400);
                             frame.setVisible(true);
 
-                            // Executa o cliente
                             executar();
                         } else {
                             JOptionPane.showMessageDialog(
@@ -197,6 +194,7 @@ public class Cliente {
             }
         });
 
+        // Adiciona o listener para o botão de sair
         botaoSair.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
@@ -216,7 +214,7 @@ public class Cliente {
 
         // Gera uma cor de fundo aleatória
         Random rand = new Random();
-        int r = 200 + rand.nextInt(56); // 200 a 255
+        int r = 200 + rand.nextInt(56);
         int g = 200 + rand.nextInt(56);
         int b = 200 + rand.nextInt(56);
         Color randomColor = new Color(r, g, b);
@@ -243,10 +241,9 @@ public class Cliente {
         // Modelo para o combo box de usuários
         modeloUsuarios = new DefaultComboBoxModel<>();
         comboUsuarios = new JComboBox<>(modeloUsuarios);
-        comboUsuarios.addItem(mensagens.getString("everyone_message")); // Adiciona a opção "Everyone" inicialmente
-        comboUsuarios.setSelectedIndex(0); // Seleciona "Everyone" por padrão
+        comboUsuarios.addItem(mensagens.getString("everyone_message"));
+        comboUsuarios.setSelectedIndex(0);
 
-        // Adiciona os componentes ao painel inferior
         JLabel labelDestinatario = new JLabel(mensagens.getString("to_message"));
         labelDestinatario.setFont(new Font("Arial", Font.PLAIN, 20));
         painelInferior.add(labelDestinatario);
@@ -274,7 +271,6 @@ public class Cliente {
 
         frame.setTitle(MessageFormat.format(mensagens.getString("chat_title"), nomeUsuario));
 
-        // Marca o chat como configurado
         chatConfigurado = true;
     }
 
@@ -326,12 +322,10 @@ public class Cliente {
         }).start();
     }
 
-    // Método para adicionar mensagens com cores
     private void adicionarMensagem(String mensagem) {
-        // Obtém o estilo do documento
+
         StyledDocument doc = areaTexto.getStyledDocument();
 
-        // Determina a cor com base no remetente
         SimpleAttributeSet estilo = new SimpleAttributeSet();
 
         if (mensagem.startsWith("Servidor")) {
